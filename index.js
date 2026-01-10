@@ -119,6 +119,9 @@ function renderPage(key) {
 
     productGrid.innerHTML = "";
 
+    mobileMenu.classList.remove("open");
+    hamburger.classList.remove("open");
+
     data.products.forEach(p => {
         productGrid.innerHTML += `
         <div class="product-card">
