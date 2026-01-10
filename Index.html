@@ -3,85 +3,39 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shop</title>
+    <title>MAISON ESTÉ</title>
 
     <link rel="stylesheet" href="index.css" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <link href="https://fonts.googleapis.com/css2?family=Ruthie&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..900&display=swap" rel="stylesheet" />
 
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 
-<body class="playfair-display">
+<body>
 
 <nav id="nav-bar">
-    <h1>
-        <span class="ruthie-regular">MAISON </span>
-        ESTÉ
-    </h1>
-
+    <h1>MAISON ESTÉ</h1>
     <ul>
-        <li><a href="#">Coats</a></li>
-        <li><a href="#">Suits</a></li>
-        <li><a href="#">Dresses</a></li>
-        <li><a href="#">Outfits</a></li>
+        <li><a href="/coats" data-page="coats">Coats</a></li>
+        <li><a href="/suits" data-page="suits">Suits</a></li>
+        <li><a href="/dresses" data-page="dresses">Dresses</a></li>
+        <li><a href="/outfits" data-page="outfits">Outfits</a></li>
     </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
     <div class="textBox">
-        <h1>Designed for Quiet Confidence</h1>
-        <p>Tailoring, refined.</p>
+        <h1 id="hero-title">Designed for Quiet Confidence</h1>
+        <p id="hero-subtitle">Tailoring, refined.</p>
     </div>
 
-    <img
-            id="cover-image"
-            class="lazy"
-            src="./img/imgCompressed.jpg"
-            data-src="./img/luxury.png"
-            alt="Main cover"
-            style="filter: blur(6px);"
-    />
+    <img id="hero-image" src="./img/hero.png" alt="Hero" />
 </section>
 
-<!-- NEW ARRIVALS -->
+<!-- COLLECTION -->
 <section class="new-arrivals">
-    <h2>New Arrivals</h2>
-
-    <div class="overlap-wrapper">
-        <div class="product-grid">
-
-            <div class="product-card">
-                <img src="./img/org/suit.png" alt="">
-                <p class="name">Tailored Blazer</p>
-                <span class="price">$720</span>
-            </div>
-
-            <div class="product-card">
-                <img src="./img/org/silkLight.png" alt="">
-                <p class="name">silk Evening Dress</p>
-                <span class="price">$1,550</span>
-            </div>
-
-            <div class="product-card">
-                <img src="./img/org/eveningLight.png" alt="">
-                <p class="name">Evening Dress</p>
-                <span class="price">$990</span>
-            </div>
-
-            <div class="product-card">
-                <img src="./img/org/coat.png" alt="">
-                <p class="name">Structured Wool Coat</p>
-                <span class="price">$875</span>
-            </div>
-
-        </div>
-    </div>
+    <h2 id="section-title">New Arrivals</h2>
+    <div class="product-grid" id="product-grid"></div>
 </section>
 
 <script src="index.js"></script>

@@ -1,54 +1,117 @@
-const navBar = document.getElementById("nav-bar");
-let scrollTimeout;
+const heroTitle = document.getElementById("hero-title");
+const heroSubtitle = document.getElementById("hero-subtitle");
+const heroImage = document.getElementById("hero-image");
+const sectionTitle = document.getElementById("section-title");
+const productGrid = document.getElementById("product-grid");
 
 /* =========================
-   NAV — QUIET SCROLL BEHAVIOR
+   IMAGE HELPERS
    ========================= */
 
-document.addEventListener("scroll", () => {
-    // While scrolling: subtle glass effect
-    navBar.style.background = "rgba(246, 245, 243, 0.92)";
-    navBar.style.backdropFilter = "blur(6px)";
-    navBar.style.boxShadow = "0 4px 14px rgba(0, 0, 0, 0.12)";
+function rangeImages(path, prefix, count) {
+    return Array.from({ length: count }, (_, i) => ({
+        img: `${path}/${prefix}${i + 1}.png`,
+        name: prefix.replace(/^\w/, c => c.toUpperCase()),
+        price: ""
+    }));
+}
 
-    clearTimeout(scrollTimeout);
+/* =========================
+   PAGE DATA
+   ========================= */
 
-    // After scroll stops: calm, solid
-    scrollTimeout = setTimeout(() => {
-        navBar.style.background = "rgb(246, 245, 243)";
-        navBar.style.backdropFilter = "blur(0px)";
-        navBar.style.boxShadow = "none";
-    }, 140);
+const pages = {
+    home: {
+        title: "Designed for Quiet Confidence",
+        subtitle: "Tailoring, refined.",
+        hero: "./img/hero.png",
+        section: "New Arrivals",
+        products: [
+            { img: "./img/org/suit.png", name: "Tailored Blazer", price: "$720" },
+            { img: "./img/org/silkLight.png", name: "Silk Evening Dress", price: "$1,550" },
+            { img: "./img/org/eveningLight.png", name: "Evening Dress", price: "$990" },
+            { img: "./img/org/coat.png", name: "Structured Wool Coat", price: "$875" }
+        ]
+    },
+
+    coats: {
+        title: "Outerwear, Defined",
+        subtitle: "Structure. Weight. Presence.",
+        hero: "./img/coat/coatHero.png",
+        section: "Coats",
+        products: rangeImages("./img/coat", "coat", 10)
+    },
+
+    suits: {
+        title: "Tailoring with Precision",
+        subtitle: "Form, refined.",
+        hero: "./img/suits/suitHero.png",
+        section: "Suits",
+        products: rangeImages("./img/suits", "suit", 10)
+    },
+
+    dresses: {
+        title: "Evening, Reduced",
+        subtitle: "Silhouette over excess.",
+        hero: "./img/Dresses/dressHero.png",
+        section: "Dresses",
+        products: rangeImages("./img/Dresses", "dress", 10)
+    },
+
+    outfits: {
+        title: "A Complete Expression",
+        subtitle: "Composed, not styled.",
+        hero: "./img/org/suit.png",
+        section: "Outfits",
+        products: []
+    }
+};
+
+/* =========================
+   RENDER
+   ========================= */
+
+function renderPage(key) {
+    const data = pages[key] || pages.home;
+
+    heroTitle.textContent = data.title;
+    heroSubtitle.textContent = data.subtitle;
+    heroImage.src = data.hero;
+    sectionTitle.textContent = data.section;
+
+    productGrid.innerHTML = "";
+
+    data.products.forEach(p => {
+        productGrid.innerHTML += `
+            <div class="product-card">
+                <img src="${p.img}" alt="">
+<!--                <p class="name">${p.name}</p>-->
+                ${p.price ? `<span class="price">${p.price}</span>` : ""}
+            </div>
+        `;
+    });
+}
+
+/* =========================
+   NAVIGATION
+   ========================= */
+
+document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", e => {
+        e.preventDefault();
+        const page = link.dataset.page;
+        history.pushState({ page }, "", `/${page}`);
+        renderPage(page);
+    });
+});
+
+window.addEventListener("popstate", e => {
+    renderPage(e.state?.page || "home");
 });
 
 /* =========================
-   IMAGE LAZY LOADING — SILENT
+   INIT
    ========================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-    const images = document.querySelectorAll("img.lazy");
-
-    const observer = new IntersectionObserver(
-        entries => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-
-                const img = entry.target;
-                const highRes = new Image();
-                highRes.src = img.dataset.src;
-
-                highRes.onload = () => {
-                    img.src = img.dataset.src;
-                    img.style.filter = "blur(0px)";
-                    img.style.transition = "filter 600ms ease";
-                    img.classList.remove("lazy");
-                };
-
-                observer.unobserve(img);
-            });
-        },
-        { rootMargin: "200px" }
-    );
-
-    images.forEach(img => observer.observe(img));
-});
+const initial = location.pathname.replace("/", "") || "home";
+renderPage(initial);
