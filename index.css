@@ -218,6 +218,14 @@ nav ul a:hover {
     box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
 }
 
+.product-card.is-focused {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+}
+
+.product-card {
+    will-change: transform, box-shadow;
+}
 /* =========================
    RESPONSIVE
    ========================= */
@@ -262,7 +270,7 @@ nav ul a:hover {
    ========================= */
 
 .hamburger {
-    display: none;
+    display: none !important;
     background: none;
     border: none;
     cursor: pointer;

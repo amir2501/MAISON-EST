@@ -1,3 +1,7 @@
+/* =========================
+   DOM REFERENCES
+   ========================= */
+
 const heroTitle = document.getElementById("hero-title");
 const heroSubtitle = document.getElementById("hero-subtitle");
 const heroImage = document.getElementById("hero-image");
@@ -7,6 +11,12 @@ const home = document.getElementById("home");
 
 const hamburger = document.querySelector(".hamburger");
 const mobileMenu = document.querySelector(".mobile-menu");
+
+/* =========================
+   DEVICE CHECK
+   ========================= */
+
+const isTouchDevice = window.matchMedia("(hover: none)").matches;
 
 /* =========================
    HAMBURGER
@@ -21,7 +31,7 @@ hamburger.addEventListener("click", () => {
    ========================= */
 
 function rangeImages(path, prefix, count) {
-    return Array.from({ length: count }, (_, i) => ({
+    return Array.from({length: count}, (_, i) => ({
         img: `${path}/${prefix}${i + 1}.png`,
         price: ""
     }));
@@ -38,10 +48,26 @@ const pages = {
         hero: "./img/hero.png",
         section: "New Arrivals",
         products: [
-            { img: "./img/org/suit.png", price: "$720" },
-            { img: "./img/org/silkLight.png", price: "$1,550" },
-            { img: "./img/org/eveningLight.png", price: "$990" },
-            { img: "./img/org/coat.png", price: "$875" }
+            {
+                img: "./img/org/suit.png",
+                name: "Tailored Blazer",
+                price: "$720"
+            },
+            {
+                img: "./img/org/silkLight.png",
+                name: "Silk Evening Dress",
+                price: "$1,550"
+            },
+            {
+                img: "./img/org/eveningLight.png",
+                name: "Evening Dress",
+                price: "$990"
+            },
+            {
+                img: "./img/org/coat.png",
+                name: "Structured Wool Coat",
+                price: "$875"
+            }
         ]
     },
 
@@ -72,9 +98,9 @@ const pages = {
     outfits: {
         title: "A Complete Expression",
         subtitle: "Composed, not styled.",
-        hero: "./img/org/suit.png",
+        hero: "./img/outfits/outfitHero.png",
         section: "Outfits",
-        products: []
+        products: rangeImages("./img/outfits", "outfit", 10)
     }
 };
 
@@ -94,36 +120,40 @@ function renderPage(key) {
 
     data.products.forEach(p => {
         productGrid.innerHTML += `
-            <div class="product-card">
-                <img src="${p.img}" alt="">
-                ${p.price ? `<span class="price">${p.price}</span>` : ""}
-            </div>
-        `;
+        <div class="product-card">
+            <img src="${p.img}" alt="${p.name || ""}">
+
+            ${p.name ? `<div class="name">${p.name}</div>` : ""}
+            ${p.price ? `<span class="price">${p.price}</span>` : ""}
+        </div>
+    `;
     });
+
+    observeProducts();
 }
 
 /* =========================
-   DESKTOP NAV
+   NAVIGATION — DESKTOP
    ========================= */
 
 document.querySelectorAll("nav a").forEach(link => {
     link.addEventListener("click", e => {
         e.preventDefault();
         const page = link.dataset.page;
-        history.pushState({ page }, "", `/${page}`);
+        history.pushState({page}, "", `/${page}`);
         renderPage(page);
     });
 });
 
 /* =========================
-   MOBILE NAV
+   NAVIGATION — MOBILE
    ========================= */
 
 mobileMenu.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", e => {
         e.preventDefault();
         const page = link.dataset.page;
-        history.pushState({ page }, "", `/${page}`);
+        history.pushState({page}, "", `/${page}`);
         renderPage(page);
         mobileMenu.classList.remove("open");
     });
@@ -135,7 +165,7 @@ mobileMenu.querySelectorAll("a").forEach(link => {
 
 home.addEventListener("click", e => {
     e.preventDefault();
-    history.pushState({ page: "home" }, "", `/`);
+    history.pushState({page: "home"}, "", `/`);
     renderPage("home");
 });
 
@@ -148,8 +178,47 @@ window.addEventListener("popstate", e => {
 });
 
 /* =========================
+   INTERSECTION OBSERVER
+   ========================= */
+
+let observer;
+
+function observeProducts() {
+    if (!isTouchDevice) return;
+
+    if (observer) observer.disconnect();
+
+    const cards = document.querySelectorAll(".product-card");
+
+    const options = {
+        root: null,
+        rootMargin: "-40% 0px -40% 0px",
+        threshold: [0.25, 0.5, 0.75]
+    };
+
+    observer = new IntersectionObserver(entries => {
+        let mostVisible = null;
+        let maxRatio = 0;
+
+        entries.forEach(entry => {
+            if (entry.intersectionRatio > maxRatio) {
+                maxRatio = entry.intersectionRatio;
+                mostVisible = entry.target;
+            }
+        });
+
+        if (mostVisible) {
+            cards.forEach(c => c.classList.remove("is-focused"));
+            mostVisible.classList.add("is-focused");
+        }
+    }, options);
+
+    cards.forEach(card => observer.observe(card));
+}
+
+/* =========================
    INIT
    ========================= */
 
-const initial = location.pathname.replace("/", "") || "home";
-renderPage(initial);
+const initialPage = location.pathname.replace("/", "") || "home";
+renderPage(initialPage);
