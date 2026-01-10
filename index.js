@@ -96,7 +96,7 @@ const pages = {
     },
 
     outfits: {
-        title: "A Complete Expression",
+        title: "Complete Expression",
         subtitle: "Composed, not styled.",
         hero: "./img/outfits/outfitHero.png",
         section: "Outfits",
