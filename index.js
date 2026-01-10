@@ -3,6 +3,7 @@ const heroSubtitle = document.getElementById("hero-subtitle");
 const heroImage = document.getElementById("hero-image");
 const sectionTitle = document.getElementById("section-title");
 const productGrid = document.getElementById("product-grid");
+const home = document.getElementById("home");
 
 /* =========================
    IMAGE HELPERS
@@ -104,6 +105,11 @@ document.querySelectorAll("nav a").forEach(link => {
         renderPage(page);
     });
 });
+
+home.addEventListener("click", e => {
+    e.preventDefault();
+    renderPage(home);
+})
 
 window.addEventListener("popstate", e => {
     renderPage(e.state?.page || "home");
