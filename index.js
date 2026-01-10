@@ -24,6 +24,7 @@ const isTouchDevice = window.matchMedia("(hover: none)").matches;
 
 hamburger.addEventListener("click", () => {
     mobileMenu.classList.toggle("open");
+    hamburger.classList.toggle("open");
 });
 
 /* =========================

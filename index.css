@@ -323,7 +323,7 @@ nav ul a:hover {
    ========================= */
 
 /* Hide desktop nav on touch devices */
-@media (hover: none), (pointer: coarse), (max-width: 1024px) {
+@media  (max-width: 1024px) {
     .nav-links {
         display: none !important;
     }
@@ -334,7 +334,7 @@ nav ul a:hover {
     }
 }
 
-@media (hover: none), (pointer: coarse), (max-width: 1024px) {
+@media  (max-width: 1024px) {
     .hamburger {
         display: flex;
         flex-direction: column;
@@ -342,4 +342,28 @@ nav ul a:hover {
         min-width: 44px;
         min-height: 44px;
     }
+}
+
+.hamburger span {
+    position: relative;
+    width: 22px;
+    height: 1px;
+    background: var(--color-text-primary);
+    transition: transform 300ms ease, opacity 300ms ease;
+}
+
+/*.hamburger span:first-child {*/
+/*    top: 18px;*/
+/*}*/
+
+/*.hamburger span:last-child {*/
+/*    top: 26px;*/
+/*}*/
+
+.hamburger.open span:first-child {
+    transform: rotate(45deg) translate(4px, 4px);
+}
+
+.hamburger.open span:last-child {
+    transform: rotate(-45deg) translate(4px, -4px);
 }
