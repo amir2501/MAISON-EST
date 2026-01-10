@@ -5,6 +5,17 @@ const sectionTitle = document.getElementById("section-title");
 const productGrid = document.getElementById("product-grid");
 const home = document.getElementById("home");
 
+const hamburger = document.querySelector(".hamburger");
+const mobileMenu = document.querySelector(".mobile-menu");
+
+/* =========================
+   HAMBURGER
+   ========================= */
+
+hamburger.addEventListener("click", () => {
+    mobileMenu.classList.toggle("open");
+});
+
 /* =========================
    IMAGE HELPERS
    ========================= */
@@ -12,7 +23,6 @@ const home = document.getElementById("home");
 function rangeImages(path, prefix, count) {
     return Array.from({ length: count }, (_, i) => ({
         img: `${path}/${prefix}${i + 1}.png`,
-        name: prefix.replace(/^\w/, c => c.toUpperCase()),
         price: ""
     }));
 }
@@ -28,10 +38,10 @@ const pages = {
         hero: "./img/hero.png",
         section: "New Arrivals",
         products: [
-            { img: "./img/org/suit.png", name: "Tailored Blazer", price: "$720" },
-            { img: "./img/org/silkLight.png", name: "Silk Evening Dress", price: "$1,550" },
-            { img: "./img/org/eveningLight.png", name: "Evening Dress", price: "$990" },
-            { img: "./img/org/coat.png", name: "Structured Wool Coat", price: "$875" }
+            { img: "./img/org/suit.png", price: "$720" },
+            { img: "./img/org/silkLight.png", price: "$1,550" },
+            { img: "./img/org/eveningLight.png", price: "$990" },
+            { img: "./img/org/coat.png", price: "$875" }
         ]
     },
 
@@ -86,7 +96,6 @@ function renderPage(key) {
         productGrid.innerHTML += `
             <div class="product-card">
                 <img src="${p.img}" alt="">
-<!--                <p class="name">${p.name}</p>-->
                 ${p.price ? `<span class="price">${p.price}</span>` : ""}
             </div>
         `;
@@ -94,7 +103,7 @@ function renderPage(key) {
 }
 
 /* =========================
-   NAVIGATION
+   DESKTOP NAV
    ========================= */
 
 document.querySelectorAll("nav a").forEach(link => {
@@ -106,10 +115,33 @@ document.querySelectorAll("nav a").forEach(link => {
     });
 });
 
+/* =========================
+   MOBILE NAV
+   ========================= */
+
+mobileMenu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", e => {
+        e.preventDefault();
+        const page = link.dataset.page;
+        history.pushState({ page }, "", `/${page}`);
+        renderPage(page);
+        mobileMenu.classList.remove("open");
+    });
+});
+
+/* =========================
+   HOME (LOGO)
+   ========================= */
+
 home.addEventListener("click", e => {
     e.preventDefault();
-    renderPage(home);
-})
+    history.pushState({ page: "home" }, "", `/`);
+    renderPage("home");
+});
+
+/* =========================
+   BACK / FORWARD
+   ========================= */
 
 window.addEventListener("popstate", e => {
     renderPage(e.state?.page || "home");

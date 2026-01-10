@@ -256,3 +256,69 @@ nav ul a:hover {
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================
+   HAMBURGER
+   ========================= */
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--color-text-primary);
+    margin: 6px 0;
+    transition: transform 300ms ease, opacity 300ms ease;
+}
+
+/* =========================
+   MOBILE MENU
+   ========================= */
+
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: var(--color-paper);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms ease;
+}
+
+.mobile-menu a {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: var(--color-text-primary);
+}
+
+/* Open state */
+.mobile-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* =========================
+   MOBILE BREAKPOINT
+   ========================= */
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
