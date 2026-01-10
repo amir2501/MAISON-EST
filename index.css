@@ -310,15 +310,17 @@ nav ul a:hover {
 }
 
 /* =========================
-   MOBILE BREAKPOINT
+   TOUCH & TABLET NAVIGATION
    ========================= */
 
-@media (max-width: 768px) {
+/* Hide desktop nav on touch devices */
+@media (hover: none), (pointer: coarse), (max-width: 1024px) {
     .nav-links {
-        display: none;
+        display: none !important;
     }
 
     .hamburger {
         display: block;
+        padding: 12px;
     }
 }
