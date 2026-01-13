@@ -52,22 +52,22 @@ const pages = {
             {
                 img: "./img/org/suit.png",
                 name: "Tailored Blazer",
-                price: "$720"
+                price: "2 000 000 UZS"
             },
             {
                 img: "./img/org/silkLight.png",
                 name: "Silk Evening Dress",
-                price: "$1,550"
+                price: "850 000 UZS"
             },
             {
                 img: "./img/org/eveningLight.png",
                 name: "Evening Dress",
-                price: "$990"
+                price: "900 000 UZS"
             },
             {
                 img: "./img/org/coat.png",
                 name: "Structured Wool Coat",
-                price: "$875"
+                price: "3 000 000 UZS"
             }
         ]
     },
