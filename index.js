@@ -77,7 +77,28 @@ const pages = {
         subtitle: "Structure. Weight. Presence.",
         hero: "./img/coat/coatHero.png",
         section: "Coats",
-        products: rangeImages("./img/coat", "coat", 10)
+        products: [
+            {
+                img: "./img/coat/coat1.png",
+                name: "Ivory Tailored Coat",
+                price: "2 000 000 UZS"
+            },
+            {
+                img: "./img/coat/coat3.png",
+                name: "Midnight Wool Coat",
+                price: "2 100 000 UZS"
+            },
+            {
+                img: "./img/org/eveningLight.png",
+                name: "Pearl Lightweight Coat",
+                price: "1 500 000 UZS"
+            },
+            {
+                img: "./img/coat/coat8.png",
+                name: "Architectural Wool Overcoat",
+                price: "3 000 000 UZS"
+            }
+        ]
     },
 
     suits: {
@@ -85,7 +106,23 @@ const pages = {
         subtitle: "Form, refined.",
         hero: "./img/suits/suitHero.png",
         section: "Suits",
-        products: rangeImages("./img/suits", "suit", 10)
+        products: [
+            {
+                img: "./img/suits/suit1.png",
+                name: "Ivory Tailored Suit",
+                price: "2 000 000 UZS"
+            },
+            {
+                img: "./img/suits/suit2.png",
+                name: "Midnight single-breasted Statement Suit",
+                price: "2 100 000 UZS"
+            },
+            {
+                img: "./img/suits/suit9.png",
+                name: "Pearl double-breasted Structured Suit",
+                price: "1 500 000 UZS"
+            }
+        ]
     },
 
     dresses: {
@@ -93,7 +130,23 @@ const pages = {
         subtitle: "Silhouette over excess.",
         hero: "./img/Dresses/dressHero.png",
         section: "Dresses",
-        products: rangeImages("./img/Dresses", "dress", 10)
+        products: [
+            {
+                img: "./img/Dresses/dress1.png",
+                name: "Ivory Minimal Dress",
+                price: "800 000 UZS"
+            },
+            {
+                img: "./img/Dresses/dress2.png",
+                name: "Midnight Evening Dress",
+                price: "900 000 UZS"
+            },
+            {
+                img: "./img/Dresses/dress5.png",
+                name: "Soft Grey Day Dress",
+                price: "700 000 UZS"
+            }
+        ]
     },
 
     outfits: {
