@@ -89,7 +89,7 @@ const pages = {
                 price: "2 100 000 UZS"
             },
             {
-                img: "./img/org/eveningLight.png",
+                img: "./img/coat/coat6.png.png",
                 name: "Pearl Lightweight Coat",
                 price: "1 500 000 UZS"
             },
